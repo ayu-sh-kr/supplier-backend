@@ -6,13 +6,13 @@ import dev.archimedes.enities.dtos.SupplierInfo;
  * Projection for {@link dev.archimedes.enities.supplier.Branch}
  */
 public interface BranchInfo {
-    int getId();
+    int getBranchId();
 
-    String getBranch_name();
-
-    String getBranch_email();
-
-    String getAddress();
+    String getName();
 
     SupplierInfo getSupplier();
+
+    String getEmail();
+
+    String getAddress();
 }

@@ -9,8 +9,8 @@ import java.io.Serializable;
  */
 @Value
 public class BranchDto implements Serializable {
-    int id;
-    String branch_name;
-    String branch_email;
+    int branchId;
+    String name;
+    String email;
     String address;
 }
