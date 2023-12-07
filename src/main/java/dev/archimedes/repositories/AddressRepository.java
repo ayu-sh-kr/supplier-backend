@@ -14,5 +14,4 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 
     long countByCity(String city);
 
-
 }
