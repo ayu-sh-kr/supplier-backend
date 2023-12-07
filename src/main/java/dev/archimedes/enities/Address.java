@@ -4,13 +4,15 @@ import dev.archimedes.enums.AddressType;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "address")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
+@Entity(name = "address")
+@Table(name = "address")
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,7 +22,4 @@ public class Address {
     private String state;
     private String country;
     private Long pincode;
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
 }
