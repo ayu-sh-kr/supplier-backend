@@ -57,7 +57,7 @@ public class AdminCRUD {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<?> addProduct(Product product, long branchId){
+    public ResponseEntity<?> addProduct(Product product, int branchId){
         if(productRepository.existsByProduct_name(product.getProduct_name())){
             return new ResponseEntity<>("Product already exist", HttpStatus.BAD_REQUEST);
         }else{
@@ -87,6 +87,10 @@ public class AdminCRUD {
             productRepository.save(product);
             return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
         }
+    }
+
+    public ResponseEntity<?> getAllEmployee(){
+        return new ResponseEntity<>(employeeRepository.getEmployeeRows(), HttpStatus.OK);
     }
 
 }
