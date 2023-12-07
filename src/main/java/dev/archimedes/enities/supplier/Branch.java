@@ -2,10 +2,13 @@ package dev.archimedes.enities.supplier;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.archimedes.enities.Employee;
+import dev.archimedes.enities.shipment.Order;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "supplier_branch")
@@ -19,9 +22,11 @@ public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "branch_id")
-    private int id;
-    private String branch_name;
-    private String branch_email;
+    private int branchId;
+    @Column(name = "branch_name")
+    private String name;
+    @Column(name = "branch_email")
+    private String email;
 
     private String password;
     private String address;
@@ -42,6 +47,10 @@ public class Branch {
 
     @OneToMany(mappedBy = "branch", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Employee> employees;
+
+    @OneToMany(mappedBy = "branch", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Order> orders = new ArrayList<>();
 
     public boolean addProduct(Product product){
         return this.products.add(product);
