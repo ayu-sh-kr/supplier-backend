@@ -3,6 +3,7 @@ package dev.archimedes.controllers;
 import dev.archimedes.enities.supplier.Branch;
 import dev.archimedes.enities.supplier.Product;
 import dev.archimedes.enities.supplier.Supplier;
+import dev.archimedes.repositories.EmployeeRepository;
 import dev.archimedes.repositories.shipment.BranchRepository;
 import dev.archimedes.repositories.shipment.ProductRepository;
 import dev.archimedes.repositories.SupplierRepository;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ public class AdminController {
     private final BranchRepository branchRepository;
     private final SupplierCRUD supplierCRUD;
     private final AdminCRUD adminCRUD;
+    private final EmployeeRepository employeeRepository;
 
     @PostMapping("/create")
     public ResponseEntity<?> createSupplier(@RequestBody  Map<String, String> request){
@@ -47,8 +50,8 @@ public class AdminController {
         System.out.println("Supplier id in param is: " + supId);
         long supplierId = Long.parseLong(supId);
         Branch branch = Branch.builder()
-                .branch_name(request.get("branch_name"))
-                .branch_email(request.get("branch_email"))
+                .name(request.get("branch_name"))
+                .email(request.get("branch_email"))
                 .password(request.get("password"))
                 .address(request.get("address"))
                 .build();
@@ -105,7 +108,7 @@ public class AdminController {
     }
 
     @PostMapping("/employee/add-product")
-    public ResponseEntity<?> addProduct(@RequestBody Product product, @Param("branchId") long branchId){
+    public ResponseEntity<?> addProduct(@RequestBody Product product, @Param("branchId") int branchId){
         if(branchRepository.existsById(branchId)){
             return adminCRUD.addProduct(product, branchId);
         }
@@ -121,5 +124,17 @@ public class AdminController {
     @GetMapping("/product/get-all")
     public ResponseEntity<?> getAllProducts(){
         return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/employee/get-all")
+    public ResponseEntity<?> getAllEmployee(){
+        employeeRepository.findAllEmployee().forEach(emp -> System.out.println(MessageFormat.format("userId: {0} branchId: {1} username: {2} userEmail: {3} userRoles: {4}",
+                emp.getId(), emp.getBranch(), emp.getName(), emp.getEmail(), emp.getRoles())));
+        return adminCRUD.getAllEmployee();
+    }
+
+    @GetMapping("/order/all")
+    public ResponseEntity<?> getAllOrders(){
+        return supplierCRUD.getAllOrders();
     }
 }
