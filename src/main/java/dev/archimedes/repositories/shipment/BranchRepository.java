@@ -10,11 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface BranchRepository extends JpaRepository<Branch, Long> {
-    @Query("select s from supplier_branch s where s.branch_name = ?1")
+public interface BranchRepository extends JpaRepository<Branch, Integer> {
+    @Query("select s from supplier_branch s where s.name = ?1")
     List<Product> findByBranch_name(String branch_name);
 
-    @Query("select s from supplier_branch s where s.branch_email = ?1")
+    @Query("select s from supplier_branch s where s.email = ?1")
     Optional<Supplier> findByBranch_email(String branch_email);
 
     @Query("select s from supplier_branch s where s.supplier.id = ?1")
