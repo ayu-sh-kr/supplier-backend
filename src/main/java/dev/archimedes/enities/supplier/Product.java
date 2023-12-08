@@ -1,5 +1,6 @@
 package dev.archimedes.enities.supplier;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.archimedes.enities.shipment.Order;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,6 +40,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id")
     )
+    @JsonIgnore
     private Set<Order> orders = new HashSet<>();
 
     @Override
