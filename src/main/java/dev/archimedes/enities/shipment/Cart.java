@@ -18,12 +18,18 @@ public class Cart {
     @Column(nullable = false)
     private long productId;
     private int quantity = 1;
-
+    @ManyToOne
+    @JoinColumn(name = "buyerId")
+    private Buyer buyer;
     public void addMore(int count){
         this.quantity += count;
     }
 
     public void addMore(){
         this.quantity += 1;
+    }
+
+    public void removeOne(){
+        this.quantity -= 1;
     }
 }
