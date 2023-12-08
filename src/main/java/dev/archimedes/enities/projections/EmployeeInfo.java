@@ -1,6 +1,8 @@
 package dev.archimedes.enities.projections;
 
-import java.sql.Timestamp;
+import dev.archimedes.enities.Role;
+
+import java.util.List;
 
 /**
  * Projection for {@link dev.archimedes.enities.Employee}
@@ -12,5 +14,7 @@ public interface EmployeeInfo {
 
     String getEmail();
 
-    Timestamp getTimestamp();
+    int getBranchId();
+
+    List<Role> getRoles();
 }
