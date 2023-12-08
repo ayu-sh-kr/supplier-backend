@@ -25,8 +25,8 @@ public class Employee {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Address> addresses = new HashSet<>();
+    @OneToOne
+    private Address address;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
